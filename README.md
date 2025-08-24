@@ -46,6 +46,14 @@ It uses FastAPI, SQLite, and Docker to provide both a web interface and REST API
   <li>Open in browser: <a href="http://localhost:8000">http://localhost:8000</a></li>
 </ol>
 
+<h3>Using Docker</h3>
+<ol>
+  <li>Build and start the application:
+    <pre><code>docker build -t weather-app .</code></pre>
+  </li>
+  <li>Open in browser: <a href="http://localhost:8000">http://localhost:8000</a></li>
+</ol>
+
 <h3>Local Python setup (if not using Docker):</h3>
 <ol>
   <li>Run the development server:
