@@ -1,0 +1,93 @@
+{% extends 'index.html' %}
+
+{% block title %}
+<title>Weather info</title>
+{% endblock %}
+
+
+{% block content %}
+<div class="container my-4">
+	<div class="row g-4">
+		<div class="col-12">
+			<div class="card shadow-sm">
+				<div class="card-body d-flex align-items-center">
+					<img src="https://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" 
+						alt="Weather icon" width="72" height="72" class="me-3">
+					<div>
+						<h4 class="card-title mb-1">{{ weather.city }}</h4>
+						<p class="card-text text-muted mb-0">
+							{{ weather.weather }} — {{ weather.weather_description }}
+						</p>
+					</div>
+					<div class="ms-auto text-end">
+						<div class="display-6 fw-bold">
+							{{ '%.1f'|format(weather.temperature) }}°C
+						</div>
+						<small class="text-muted">
+							Feels like {{ '%.1f'|format(weather.feels_like) }}°C
+						</small>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-lg-6">
+			<div class="card shadow-sm h-100">
+				<div class="card-header">Main parameters</div>
+				<div class="card-body">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">Min temp: {{ weather.temp_min }}°C</li>
+						<li class="list-group-item">Max temp: {{ weather.temp_max }}°C</li>
+						<li class="list-group-item">Pressure: {{ weather.pressure }} hPa</li>
+						<li class="list-group-item">Humidity: {{ weather.humidity }}%</li>
+						<li class="list-group-item">Visibility: {{ (weather.visibility / 1000)|round(1) }} km</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12 col-lg-6">
+			<div class="card shadow-sm h-100">
+				<div class="card-header">Wind & Rain</div>
+				<div class="card-body">
+					<ul class="list-group list-group-flush">
+						<li class="list-group-item">
+							Wind: {{ weather.wind.get('speed', 0) }} m/s, {{ weather.wind.get('deg', 0) }}°
+						</li>
+						<li class="list-group-item">
+							Rain (1h): {{ weather.rain.get('1h', 0) }} mm
+						</li>
+						<li class="list-group-item">
+							Clouds: {{ weather.clouds.get('all', 0) }}%
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-12">
+			<div class="card shadow-sm">
+				<div class="card-header">Extra</div>
+				<div class="card-body row text-center">
+					<div class="col">
+						<strong>Sunrise</strong><br>
+						{{ weather.sunrise.strftime('%H:%M:%S') if weather.sunrise else '—' }}
+					</div>
+					<div class="col">
+						<strong>Sunset</strong><br>
+						{{ weather.sunset.strftime('%H:%M:%S') if weather.sunset else '—' }}
+					</div>
+					<div class="col">
+						<strong>Updated</strong><br>
+						{{ weather.time.strftime('%H:%M:%S') if weather.time else '—' }}
+					</div>
+					<div class="col">
+						<strong>Coords</strong><br>
+						{{ weather.latitude }}, {{ weather.longitude }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
